@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal prompt()</title>
+    <style>
+        *{ font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;}
+        .dn{ display: none;}
+    </style>
+</head>
+<body>
+    <p>
+        Escolha uma tipo de animal: <button onclick="animal();">iniciar</button>
+    </p>
+    <pre>
+        Vertebrado
+            ave
+                carnívoro
+                    águia
+                onívoro
+                    pomba
+
+            mamífero
+                onívoro
+                    homem
+                herbívoro
+                    vaca
+
+        Invertebrado
+            inseto
+                hematófogo
+                    pulga
+                herbívoro
+                    lagarta
+
+            anelídeo
+                hematófago
+                    sanguessuga
+                onívoro
+                    minhoca
+    </pre>
+
+    <script>
+        function animal() {            
+
+            let q1 = "";
+            let q2a = '';
+            let q2b = '';
+            let q3a = '';
+            let q3b = '';
+            let q3c = '';
+            let q3d = '';
+
+            q1 = prompt('Escolha uma opção para saber o animal: \n[ 1 ] Vertebrado \n[ 2 ] Invertebrado');
+            // console.log(q1);
+            if(q1 != 1 && q1 != 2){
+                return;
+            }
+            if(q1.length == 0){
+                alert('Responda com "1" ou "2"');
+                animal();
+            } 
+            
+            if(q1 == 1){ // vertebrado
+                q2a = prompt('[ 1 ] Ave \n[ 2 ] Mamífero');
+            } else { // invertebrado
+                q2b = prompt('[ 1 ] Inseto \n[ 2 ] Anelídeo');
+            }
+
+            if(q2a.length > 0){ // vertebrado
+                if (q2a == 1) { // ave
+                    q3a = prompt('[ 1 ] Carnívoro \n[ 2 ] Onívoro');
+                } else { // mamífero
+                    q3b = prompt('[ 1 ] Onívoro \n[ 2 ] Herbívoro');
+                }
+            }
+
+            if(q2b.length > 0) { // invertebrado
+                if (q2b == 1) { // inseto
+                    q3c = prompt('[ 1 ] Hematófogo \n[ 2 ] Herbívoro');
+                } else { // anelídeo
+                    q3d = prompt('[ 1 ] Hematófogo \n[ 2 ] Onívoro');
+                }
+            }
+
+            if (q3a.length > 0) { // resposta vertebrado
+                if (q3a == 1) {
+                    alert('Vertebrado / Ave / Carnívoro : Águia');
+                    return;
+                } else {
+                    alert('Vertebrado / Ave / Onívoro : Pomba');
+                    return;
+                }
+            }
+            
+            if (q3b.length > 0) {
+                if (q3b == 1) {
+                    alert('Vertebrado / mamífero / Onívoro : Homem');
+                    return;
+                } else {
+                    alert('Vertebrado / mamífero / Herbívoro : Vaca');
+                    return;
+                }
+            }
+
+            if(q3c.length > 0){ // inseto
+                if (q3c == 1) {
+                    alert('Invertebrado / Inseto / Hematófogo : Pulga');
+                } else {
+                    alert('Invertebrado / Inseto / Herbívoro : Lagarta');
+                }
+            }
+
+            if(q3d.length > 0){ // anelídeo
+                if(q3d == 1){
+                    alert('Invertebrado / Anelídio / Hematófogo : Sanguessuga');
+                } else {
+                    alert('Invertebrado / Anelídio / Onívoro : Minhoca');
+                }
+            }
+        }
+    </script>
+</body>
+</html>

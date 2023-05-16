@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal prompt()</title>
+    <style>
+        *{ 
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+        .dn{ 
+            display: none;
+        }
+        .marcador{
+            background: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <p>
+        Escolha uma tipo de animal: <button onclick="showHideMarcador(true); animal();">iniciar</button>
+    </p>
+    <pre>
+        <span class="marcador dn marcador-1">-></span> Vertebrado
+            <span class="marcador dn marcador-11">-></span> ave
+                <span class="marcador dn marcador-111">-></span> carnívoro
+                    <span class="marcador dn marcador-1111">-></span> águia
+                <span class="marcador dn marcador-112">-></span> onívoro
+                    <span class="marcador dn marcador-1121">-></span> pomba
+
+            <span class="marcador dn marcador-12">-></span> mamífero
+                <span class="marcador dn marcador-121">-></span> onívoro
+                    <span class="marcador dn marcador-1211">-></span> homem
+                <span class="marcador dn marcador-122">-></span> herbívoro
+                    <span class="marcador dn marcador-1221">-></span> vaca
+
+        <span class="marcador dn marcador-2">-></span> Invertebrado
+            <span class="marcador dn marcador-21">-></span> inseto
+                <span class="marcador dn marcador-211">-></span> hematófogo
+                    <span class="marcador dn marcador-2111">-></span> pulga
+                <span class="marcador dn marcador-212">-></span> herbívoro
+                    <span class="marcador dn marcador-2121">-></span> lagarta
+
+            <span class="marcador dn marcador-22">-></span> anelídeo
+                <span class="marcador dn marcador-221">-></span> hematófago
+                    <span class="marcador dn marcador-2211">-></span> sanguessuga
+                <span class="marcador dn marcador-222">-></span> onívoro
+                    <span class="marcador dn marcador-2221">-></span> minhoca
+    </pre>
+
+    <script>
+        // funções para selecionar elementos na tela
+        const marcador = (el) => document.querySelector(el);
+        const marcadores = (el) => document.querySelectorAll(el);
+
+        function showHideMarcador(iniciar = false, marcadorExibir = '') {
+
+            if (iniciar) {
+
+                grupoMarcadores = marcadores('.marcador');
+
+                for (let i = 0; i < grupoMarcadores.length; i++) {
+                    grupoMarcadores[i].classList.add('dn');
+                }
+
+                return;
+            }
+
+            marcar = marcador(marcadorExibir);
+            marcar.classList.remove('dn');
+            
+        }
+        // como usar:
+        // showHideMarcador('','.marcador-2222');
+
+        function animal() {            
+
+            let q1 = "";
+            let q2a = '';
+            let q2b = '';
+            let q3a = '';
+            let q3b = '';
+            let q3c = '';
+            let q3d = '';
+
+            q1 = prompt('Escolha uma opção para saber o animal: \n[ 1 ] Vertebrado \n[ 2 ] Invertebrado');
+            // console.log(q1);
+            if(q1 != 1 && q1 != 2){
+                showHideMarcador(true);
+                return;
+            }
+            if(q1.length == 0){
+                alert('Responda com "1" ou "2"');
+                animal();
+            } 
+            
+            if(q1 == 1){ // vertebrado
+                showHideMarcador('','.marcador-1');
+                q2a = prompt('[ 1 ] Ave \n[ 2 ] Mamífero');
+            } else { // invertebrado
+                showHideMarcador('','.marcador-2');
+                q2b = prompt('[ 1 ] Inseto \n[ 2 ] Anelídeo');
+            }
+
+            if(q2a.length > 0){ // vertebrado
+                if (q2a == 1) { // ave
+                    showHideMarcador('','.marcador-11');
+                    q3a = prompt('[ 1 ] Carnívoro \n[ 2 ] Onívoro');
+                } else { // mamífero
+                    showHideMarcador('','.marcador-12');
+                    q3b = prompt('[ 1 ] Onívoro \n[ 2 ] Herbívoro');
+                }
+            }
+
+            if(q2b.length > 0) { // invertebrado
+                if (q2b == 1) { // inseto
+                    showHideMarcador('','.marcador-21');
+                    q3c = prompt('[ 1 ] Hematófogo \n[ 2 ] Herbívoro');
+                } else { // anelídeo
+                    showHideMarcador('','.marcador-22');
+                    q3d = prompt('[ 1 ] Hematófogo \n[ 2 ] Onívoro');
+                }
+            }
+
+            if (q3a.length > 0) { // resposta vertebrado
+                if (q3a == 1) {
+                    showHideMarcador('','.marcador-111');
+                    showHideMarcador('','.marcador-1111');
+                    alert('Vertebrado / Ave / Carnívoro : Águia');
+                    return;
+                } else {
+                    showHideMarcador('','.marcador-112');
+                    showHideMarcador('','.marcador-1121');
+                    alert('Vertebrado / Ave / Onívoro : Pomba');
+                    return;
+                }
+            }
+            
+            if (q3b.length > 0) {
+                if (q3b == 1) {
+                    showHideMarcador('','.marcador-121');
+                    showHideMarcador('','.marcador-1211');
+                    alert('Vertebrado / mamífero / Onívoro : Homem');
+                    return;
+                } else {
+                    showHideMarcador('','.marcador-122');
+                    showHideMarcador('','.marcador-1221');
+                    alert('Vertebrado / mamífero / Herbívoro : Vaca');
+                    return;
+                }
+            }
+
+            if(q3c.length > 0){ // inseto
+                if (q3c == 1) {
+                    showHideMarcador('','.marcador-211');
+                    showHideMarcador('','.marcador-2111');
+                    alert('Invertebrado / Inseto / Hematófogo : Pulga');
+                } else {
+                    showHideMarcador('','.marcador-212');
+                    showHideMarcador('','.marcador-2121');
+                    alert('Invertebrado / Inseto / Herbívoro : Lagarta');
+                }
+            }
+
+            if(q3d.length > 0){ // anelídeo
+                if(q3d == 1){
+                    showHideMarcador('','.marcador-221');
+                    showHideMarcador('','.marcador-2211');
+                    alert('Invertebrado / Anelídio / Hematófogo : Sanguessuga');
+                } else {
+                    showHideMarcador('','.marcador-222');
+                    showHideMarcador('','.marcador-2221');
+                    alert('Invertebrado / Anelídio / Onívoro : Minhoca');
+                }
+            }
+        }
+    </script>
+</body>
+</html>

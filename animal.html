@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>animal</title>
+    <style>
+        div{
+            margin: 5px;
+        }
+        .vertebrado-bg{
+            background:yellowgreen;
+        }
+        .invertebrado-bg{
+            background:sandybrown;
+        }
+        .dn{
+            display: none;
+        }
+        .etapa-geral-2{
+            padding: 20px;
+        }
+        .etapa-geral-3{
+            padding: 20px 40px;
+        }
+        .painel{
+            padding: 25px;
+            text-align: center;
+            font-size: 1em;
+            background: #000;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <p>
+        Escolha uma tipo de animal:
+    </p>
+
+    <div id="etapa_ini">
+        <label for="vertebrado" class="vertebrado-bg">
+            <input type="radio" name="esqueleto" value="vertebrado" id="vertebrado" onfocus="showEtapa2('etapa_vertebrados')"> vertebrado
+        </label>
+        <br>
+        <label for="invertebrado" class="invertebrado-bg">
+            <input type="radio" name="esqueleto" value="invertebrado" id="invertebrado" onfocus="showEtapa2('etapa_invertebrados')"> invertebrado
+        </label>
+    </div>
+    
+        <div id="etapa_vertebrados" class="vertebrado-bg dn vert-etapa-2 etapa-geral-2">
+            <label for="ave">
+                <input type="radio" name="ave_mamifero" value="ave" id="ave" onfocus="showEtapa3('etapa_ave', 'etapa_mamifero')"> ave
+            </label>
+            <br>
+            <label for="mamifero">
+                <input type="radio" name="ave_mamifero" value="mamifero" id="mamifero" onfocus="showEtapa3('etapa_mamifero', 'etapa_ave')"> mamifero
+            </label>
+        </div>
+        
+            <div id="etapa_ave" class="vertebrado-bg dn vert-etapa-31 etapa-geral-3">
+                <label for="carnivoro">
+                    <input type="radio" name="ave_tipo" value="Vertebrado -> Ave -> Carnivoro: Aguia" id="carnivoro" onfocus="resultado(this.value)"> carnivoro
+                    <!-- aguia -->
+                </label>
+                <br>
+                <label for="onivoro">
+                    <input type="radio" name="ave_tipo" value="Vertebrado -> Ave -> Onivoro: Pomba" id="onivoro" onfocus="resultado(this.value)"> onivoro
+                    <!-- pomba -->
+                </label>
+            </div>
+            
+            <div id="etapa_mamifero" class="vertebrado-bg dn vert-etapa-32 etapa-geral-3">
+                <label for="maifero_onivoro">
+                    <input type="radio" name="mamifero_tipo" value="Vertebrado -> Mamifero -> Onivoro: Homem" id="maifero_onivoro" onfocus="resultado(this.value)"> onivoro
+                    <!-- homem -->
+                </label>
+                <br>
+                <label for="maifero_herbivoro">
+                    <input type="radio" name="mamifero_tipo" value="Vertebrado -> Mamifero -> Herbivoro: vaca" id="maifero_herbivoro" onfocus="resultado(this.value)"> herbivoro
+                    <!-- vaca -->
+                </label>
+            </div>
+
+    
+        <div id="etapa_invertebrados" class="invertebrado-bg dn invert-etapa-2 etapa-geral-2">
+            <label for="inseto">
+                <input type="radio" name="inseto_anelidio" value="inseto" id="inseto" onfocus="showEtapa3('etapa_inseto', 'etapa_anelidio')"> inseto
+            </label>
+            <br>
+            <label for="anelideo">
+                <input type="radio" name="inseto_anelidio" value="anelideo" id="anelideo" onfocus="showEtapa3('etapa_anelidio', 'etapa_inseto')"> anelideo
+            </label>
+        </div>
+        
+            <div id="etapa_inseto" class="invertebrado-bg dn invert-etapa-31 etapa-geral-3">
+                <label for="hematofogo">
+                    <input type="radio" name="inseto_tipo" value="Invertebrado -> Inseto -> hematofogo: Pulga" id="hematofogo" onfocus="resultado(this.value)"> hematofogo
+                    <!-- pulga -->
+                </label>
+                <br>
+                <label for="herbivoro">
+                    <input type="radio" name="inseto_tipo" value="Invertebrado -> Inseto -> herbivoro: Lagarta" id="herbivoro" onfocus="resultado(this.value)"> herbivoro
+                    <!-- lagarta -->
+                </label>
+            </div>
+            
+            <div id="etapa_anelidio" class="invertebrado-bg dn invert-etapa-32 etapa-geral-3">
+                <label for="anelidio_hematofago">
+                    <input type="radio" name="anelidio_tipo" value="Invertebrado -> Inseto -> Hematofago: Sanguessuga" id="anelidio_hematofago" onfocus="resultado(this.value)"> hematofago
+                    <!-- sanguessuga -->
+                </label>
+                <br>
+                <label for="anelidio_onivoro">
+                    <input type="radio" name="anelidio_tipo" value="Invertebrado -> Inseto -> Onivoro: Minhoca" id="anelidio_onivoro" onfocus="resultado(this.value)"> onivoro
+                    <!-- minhoca -->
+                </label>
+            </div>
+
+        <div class="painel dn">
+
+        </div>
+
+    <script>
+
+        const c = (el) => document.querySelector(el);
+        const cs = (el) => document.querySelectorAll(el);
+        painel = c('.painel');
+
+        function showEtapa2(nomeEtapa) {
+
+            etapa2 = cs('.etapa-geral-2');
+            etapa3 = cs('.etapa-geral-3');
+
+            limpaPainel();
+            
+            etapa2.forEach(element => {
+                element.classList.add('dn');
+            });
+            
+            etapa3.forEach(element => {
+                element.classList.add('dn');
+            });
+
+            etapaAtual = c(`#${nomeEtapa}`);
+            etapaAtual.classList.remove('dn');
+
+            limpaEtapa2();
+
+        }
+
+        function showEtapa3(exibe, esconde) {
+
+            limpaPainel();
+
+            objExibe = c(`#${exibe}`);
+            objEsconde = c(`#${esconde}`);
+
+            objEsconde.classList.add('dn');
+            objExibe.classList.remove('dn');
+
+            opcoes = cs('#'+exibe+' input');
+
+            opcoes.forEach(element => {
+                element.checked = false;
+            });
+        }
+
+        function resultado(resultado) {
+            painel.classList.remove('dn');
+            painel.innerHTML = resultado;
+        }
+
+        function limpaPainel() {
+            painel.innerHTML = '';
+            painel.classList.add('dn');
+        }
+
+        function limpaEtapa2() {
+            
+            inputsEtapa2 = cs('.etapa-geral-2 input');
+
+            inputsEtapa2.forEach(element => {
+                element.checked = false;
+            });
+        }
+    </script>
+
+</body>
+</html>
